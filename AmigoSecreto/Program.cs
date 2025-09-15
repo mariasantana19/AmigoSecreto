@@ -8,19 +8,27 @@ Sorteio sorteio = new Sorteio();
 ExibirPares exibir = new ExibirPares();
 List<Pares> paresSorteados = new List<Pares>();
 
+bool sorteioFeito = false;
 int opcao = -1;
 
 do
 {
     Console.WriteLine("\n===== MENU AMIGO OCULTO =====");
     Console.WriteLine("[0] - Sair");
-    Console.WriteLine("[1] - Adicionar pessoas");
-    Console.WriteLine("[2] - Mostrar pessoas cadastradas");
-    Console.WriteLine("[3] - Sortear amigo oculto");
-    Console.WriteLine("[4] - Mostrar pares sorteados");
-    Console.WriteLine("[5] - Remover pessoa ");
-    Console.Write("Escolha uma opção: ");
 
+    if (!sorteioFeito)
+    {
+        Console.WriteLine("[1] - Adicionar pessoas");
+        Console.WriteLine("[2] - Mostrar pessoas cadastradas");
+        Console.WriteLine("[3] - Sortear amigo oculto");
+        Console.WriteLine("[5] - Remover pessoa");
+    }
+    else
+    {
+        Console.WriteLine("[4] - Mostrar pares sorteados");
+    }
+
+    Console.Write("Escolha uma opção: ");
     try
     {
         opcao = int.Parse(Console.ReadLine());
@@ -31,67 +39,70 @@ do
         continue;
     }
 
-    if (opcao == 1)
+    if (!sorteioFeito)
     {
-        Console.Write("Digite os nomes separados por vírgula: ");
-        string entrada = Console.ReadLine();
-        string[] nomes = entrada.Split(',');
-
-        for (int i = 0; i < nomes.Length; i++)
+        if (opcao == 1)
         {
-            string nomeLimpo = nomes[i].Trim();
-            if (nomeLimpo != "")
+            Console.Write("Digite os nomes separados por vírgula: ");
+            string entrada = Console.ReadLine();
+            string[] nomes = entrada.Split(',');
+
+            foreach (string nome in nomes)
             {
-                bool adicionado = lista.Adicionar(nomeLimpo);
-                if (!adicionado)
+                string nomeLimpo = nome.Trim();
+                if (nomeLimpo != "")
                 {
-                    Console.WriteLine("O nome '" + nomeLimpo + "' já está na lista e não foi adicionado.");
+                    bool adicionado = lista.Adicionar(nomeLimpo);
+                    if (!adicionado)
+                    {
+                        Console.WriteLine("O nome '" + nomeLimpo + "' já está na lista e não foi adicionado.");
+                    }
                 }
             }
         }
-    }
-    else if (opcao == 2)
-    {
-        lista.Mostrar();
-    }
-    else if (opcao == 3)
-    {
-        List<Pessoa> pessoas = lista.GetPessoas();
-        if (pessoas.Count < 2)
+        else if (opcao == 2)
         {
-            Console.WriteLine("É necessário pelo menos 2 pessoas para sortear.");
+            lista.Mostrar();
         }
-        else
+        else if (opcao == 3)
         {
-            paresSorteados = sorteio.Sortear(pessoas);
-            Console.WriteLine("Sorteio realizado!");
+            List<Pessoa> pessoas = lista.GetPessoas();
+            if (pessoas.Count < 2)
+            {
+                Console.WriteLine("É necessário pelo menos 2 pessoas para sortear.");
+            }
+            else
+            {
+                paresSorteados = sorteio.Sortear(pessoas);
+                sorteioFeito = true;
+                Console.WriteLine("Sorteio realizado!");
+            }
         }
-    }
-    else if (opcao == 4)
-    {
-        exibir.Mostrar(paresSorteados);
-    }
-    else if (opcao == 5)
-    {
-        Console.Write("Digite o nome da pessoa que deseja remover: ");
-        string nomeRemover = Console.ReadLine().Trim();
-        bool removido = lista.Remover(nomeRemover);
-        if (removido)
+        else if (opcao == 5)
         {
-            Console.WriteLine(nomeRemover + " foi removido da lista.");
+            Console.Write("Digite o nome da pessoa que deseja remover: ");
+            string nomeRemover = Console.ReadLine().Trim();
+            bool removido = lista.Remover(nomeRemover);
+            if (removido)
+                Console.WriteLine(nomeRemover + " foi removido da lista.");
+            else
+                Console.WriteLine(nomeRemover + " não está na lista.");
         }
-        else
+        else if (opcao != 0)
         {
-            Console.WriteLine(nomeRemover + " não está na lista.");
+            Console.WriteLine("Opção inválida!");
         }
-    }
-    else if (opcao == 0)
-    {
-        Console.WriteLine("Saindo do programa...");
     }
     else
     {
-        Console.WriteLine("Opção inválida!");
+        if (opcao == 4)
+        {
+            exibir.Mostrar(paresSorteados);
+        }
+        else if (opcao != 0)
+        {
+            Console.WriteLine("Opção inválida!");
+        }
     }
 
 } while (opcao != 0);

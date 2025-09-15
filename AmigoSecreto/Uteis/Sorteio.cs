@@ -1,9 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AmigoSecreto.Uteis;
 
 namespace AmigoSecreto.uteis
@@ -12,34 +9,34 @@ namespace AmigoSecreto.uteis
     {
         public List<Pares> Sortear(List<Pessoa> pessoas)
         {
-            List<Pessoa> copia = new List<Pessoa>();
-            for (int i = 0; i < pessoas.Count; i++)
+            if (pessoas.Count < 2)
             {
-                copia.Add(pessoas[i]);
+                throw new InvalidOperationException("É necessário pelo menos 2 pessoas para o sorteio.");
             }
 
+            List<Pessoa> receptoresDisponiveis = new List<Pessoa>(pessoas);
             Random aleatorio = new Random();
             List<Pares> resultado = new List<Pares>();
 
             for (int i = 0; i < pessoas.Count; i++)
             {
-                Pessoa participante = pessoas[i];
+                Pessoa doador = pessoas[i];
+                Pessoa receptor;
                 int indexSorteado;
-                Pessoa amigo;
 
                 do
                 {
-                    indexSorteado = aleatorio.Next(copia.Count);
-                    amigo = copia[indexSorteado];
+                    indexSorteado = aleatorio.Next(receptoresDisponiveis.Count);
+                    receptor = receptoresDisponiveis[indexSorteado];
                 }
-                while (amigo == participante);
+                while (receptor == doador || resultado.Any(p => p.Pessoa1 == receptor && p.Pessoa2 == doador));
 
-                Pares par = new Pares();
-                par.Pessoa1 = participante;
-                par.Pessoa2 = amigo;
-                resultado.Add(par);
+                Pares novoPar = new Pares();
+                novoPar.Pessoa1 = doador;
+                novoPar.Pessoa2 = receptor;
+                resultado.Add(novoPar);
 
-                copia.RemoveAt(indexSorteado);
+                receptoresDisponiveis.RemoveAt(indexSorteado);
             }
 
             return resultado;
