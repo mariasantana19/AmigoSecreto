@@ -47,15 +47,16 @@ do
             string entrada = Console.ReadLine();
             string[] nomes = entrada.Split(',');
 
-            foreach (string nome in nomes)
+            
+            for (int i = 0; i < nomes.Length; i++)
             {
-                string nomeLimpo = nome.Trim();
+                string nomeLimpo = nomes[i].Trim();
                 if (nomeLimpo != "")
                 {
                     bool adicionado = lista.Adicionar(nomeLimpo);
                     if (!adicionado)
                     {
-                        Console.WriteLine("O nome '" + nomeLimpo + "' já está na lista e não foi adicionado.");
+                        Console.WriteLine($"O nome '{nomeLimpo}' já está na lista e não foi adicionado.");
                     }
                 }
             }
