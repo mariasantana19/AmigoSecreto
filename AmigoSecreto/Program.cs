@@ -46,8 +46,9 @@ do
             Console.Write("Digite os nomes separados por vírgula: ");
             string entrada = Console.ReadLine();
             string[] nomes = entrada.Split(',');
+            Console.WriteLine("Nomes adicionados com sucesso!");
 
-            
+
             for (int i = 0; i < nomes.Length; i++)
             {
                 string nomeLimpo = nomes[i].Trim();
