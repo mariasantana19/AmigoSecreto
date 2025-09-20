@@ -8,7 +8,7 @@ namespace AmigoSecreto.Uteis
 {
     public class Pessoa
     {
-        public required string Nome;
+        public string Nome;
 
     }
 }

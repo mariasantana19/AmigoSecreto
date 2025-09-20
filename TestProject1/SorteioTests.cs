@@ -17,7 +17,7 @@ public class SorteioTests
         sorteio.Sortear(pessoas);
 
         // ===== VALIDAÇÃO =====
-        // Exceção é verificada pelo ExpectedException
+       
     }
 
     [TestMethod]

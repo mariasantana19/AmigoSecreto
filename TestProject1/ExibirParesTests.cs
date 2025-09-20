@@ -12,7 +12,7 @@ public class ExibirParesTests
         List<Pares> pares = new List<Pares>();
 
         // ===== AÇÃO / VALIDAÇÃO =====
-        // Só verificar que o método roda sem lançar exceção
+     
         exibir.Mostrar(pares);
     }
 
@@ -32,7 +32,7 @@ public class ExibirParesTests
         pares.Add(par);
 
         // ===== AÇÃO / VALIDAÇÃO =====
-        // Só verificar que o método roda sem lançar exceção
+   
         exibir.Mostrar(pares);
     }
 }
