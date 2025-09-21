@@ -69,6 +69,8 @@ do
         else if (opcao == 3)
         {
             List<Pessoa> pessoas = lista.GetPessoas();
+            Console.WriteLine("Pessoas cadastradas: " + pessoas.Count);
+
             if (pessoas.Count < 2)
             {
                 Console.WriteLine("É necessário pelo menos 2 pessoas para sortear.");

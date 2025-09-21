@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AmigoSecreto.Uteis;
 
-namespace AmigoSecreto.uteis
+namespace AmigoSecreto.Uteis
 {
     public class ExibirPares
     {
