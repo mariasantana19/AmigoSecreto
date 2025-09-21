@@ -9,9 +9,9 @@ namespace AmigoSecreto.uteis
     {
         public List<Pares> Sortear(List<Pessoa> pessoas)
         {
-            if (pessoas.Count < 2)
+            if (pessoas.Count < 3)
             {
-                throw new InvalidOperationException("É necessário pelo menos 2 pessoas para o sorteio.");
+                throw new InvalidOperationException("É necessário pelo menos 3 pessoas para o sorteio.");
             }
 
             List<Pessoa> receptoresDisponiveis = new List<Pessoa>(pessoas);
