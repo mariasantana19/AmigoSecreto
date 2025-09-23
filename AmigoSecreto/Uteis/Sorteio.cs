@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AmigoSecreto.Uteis;
 
-namespace AmigoSecreto.uteis
+namespace AmigoSecreto.Uteis
 {
     public class Sorteio
     {
@@ -14,29 +13,18 @@ namespace AmigoSecreto.uteis
                 throw new InvalidOperationException("É necessário pelo menos 3 pessoas para o sorteio.");
             }
 
-            List<Pessoa> receptoresDisponiveis = new List<Pessoa>(pessoas);
             Random aleatorio = new Random();
+
+            // embaralhar
+            List<Pessoa> embaralhados = pessoas.OrderBy(p => aleatorio.Next()).ToList();
+
             List<Pares> resultado = new List<Pares>();
 
-            for (int i = 0; i < pessoas.Count; i++)
+            for (int i = 0; i < embaralhados.Count; i++)
             {
-                Pessoa doador = pessoas[i];
-                Pessoa receptor;
-                int indexSorteado;
-
-                do
-                {
-                    indexSorteado = aleatorio.Next(receptoresDisponiveis.Count);
-                    receptor = receptoresDisponiveis[indexSorteado];
-                }
-                while (receptor == doador || resultado.Any(p => p.Pessoa1 == receptor && p.Pessoa2 == doador));
-
-                Pares novoPar = new Pares();
-                novoPar.Pessoa1 = doador;
-                novoPar.Pessoa2 = receptor;
-                resultado.Add(novoPar);
-
-                receptoresDisponiveis.RemoveAt(indexSorteado);
+                Pessoa doador = embaralhados[i];
+                Pessoa receptor = embaralhados[(i + 1) % embaralhados.Count]; // próximo da lista
+                resultado.Add(new Pares { Pessoa1 = doador, Pessoa2 = receptor });
             }
 
             return resultado;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using AmigoSecreto.uteis;
 using AmigoSecreto.Uteis;
 
 ListaDePessoas lista = new ListaDePessoas();
